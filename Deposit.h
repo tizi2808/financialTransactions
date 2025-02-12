@@ -14,6 +14,7 @@ public:
     Deposit(BankAccount& account, const double amount) : Transaction(amount), account(account) {};
 
     void execute() override;
+    std::string serialize() const override;
 };
 #endif //DEPOSIT_H
 

@@ -9,6 +9,7 @@
 #include <string>
 #include "Deposit.h"
 #include "Withdrawal.h"
+#include "BankTransfer.h"
 
 using namespace std;
 
@@ -17,10 +18,16 @@ class BankAccount {
     string id;
     double balance = 0;
     vector<Transaction*> transactions;
+
+    void increaseBalance(const double amount) {
+        balance += amount;
+    }
+    void decreaseBalance(const double amount) {
+        balance -= amount;
+    }
 public:
     BankAccount() {
-        id = to_string(counter);
-        counter++;
+        id = to_string(counter++);
     }
     ~BankAccount() {
         for (const auto t : transactions) {
@@ -28,6 +35,8 @@ public:
         }
         transactions.clear();
     };
+    const std::string& getId() const {return id;};
+
     void deposit(const double amount) {
         auto transaction = new Deposit(*this, amount);
         transaction->execute();
@@ -39,12 +48,21 @@ public:
         transaction->execute();
         transactions.push_back(transaction);
     }
-    void increaseBalance(const double amount) {
-        balance += amount;
+    void applyTransaction(Transaction& transaction) {
+        const double amount = transaction.getAmount();
+        if (auto t = dynamic_cast<Deposit*>(&transaction)) {
+            this->increaseBalance(amount);
+        } else if (auto t = dynamic_cast<Withdrawal*>(&transaction)) {
+            this->decreaseBalance(amount);
+        } else if (auto t = dynamic_cast<BankTransfer*>(&transaction)) {
+            if (&(t->getSender()) == this) {
+                this->decreaseBalance(amount);
+            } else if (&(t->getReceiver()) == this) {
+                this->increaseBalance(amount);
+            }
+        }
     }
-    void decreaseBalance(const double amount) {
-        balance -= amount;
-    }
+
     void displayBalance() const {
         cout << "Saldo: " << balance << endl;
     }

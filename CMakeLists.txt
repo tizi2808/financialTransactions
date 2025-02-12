@@ -9,4 +9,6 @@ add_executable(banking_transfers main.cpp
         BankAccount.h
         Withdrawal.h
         Deposit.cpp
-        Withdrawal.cpp)
+        Withdrawal.cpp
+        BankTransfer.h
+        BankTransfer.cpp)

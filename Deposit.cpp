@@ -3,8 +3,17 @@
 //
 #include "BankAccount.h"
 #include "Deposit.h"
+#include <sstream>
 
 void Deposit::execute() {
-    account.increaseBalance(amount);
+    account.applyTransaction(*this);
 }
+
+std::string Deposit::serialize() const {
+    std::ostringstream t;
+    t << "D" << account.getId() << "Q" << amount << "@" << data;
+    return t.str();
+}
+
+
 

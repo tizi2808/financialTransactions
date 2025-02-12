@@ -7,34 +7,33 @@
 #include <string>
 #include <ctime>
 #include <iostream>
+#include <cstring>
 
-using namespace std;
 
 class BankAccount;
 class Transaction {
-    static int counter;
 protected:
-    string id;
+    static int counter;
+    std::string id;
     time_t data;
     double amount;
 public:
     explicit Transaction(const double amount) {
-        this->id = to_string(counter);
-        counter++;
+        this->id = std::to_string(counter++);
         this->amount = amount;
-        time(&data);
+        data = time(nullptr);
     };
     virtual ~Transaction() = default;
 
-    const string &getId() const { return id; }
+    const std::string &getId() const { return id; }
     const time_t &getData() const { return data; }
     double getAmount() const { return amount; }
 
+    virtual std::string serialize() const = 0;
     virtual void execute() = 0;
 
     void display() const {
-        cout << "Transaction " << id << ": " << amount << " (done on "<< ctime(&data) << ")" << endl;
-
+        std::cout << "Transaction " << id << ": " << amount << " (done on "<< strtok(ctime(&data), "\n") << ")" << std::endl;
     }
 };
 

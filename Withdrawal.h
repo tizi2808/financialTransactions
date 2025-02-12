@@ -12,6 +12,7 @@ public:
     Withdrawal(BankAccount& account, const double amount) : Transaction(amount), account(account) {};
 
     void execute() override;
+    std::string serialize() const override;
 };
 
 #endif //WITHDRAWAL_H
