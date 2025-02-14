@@ -11,6 +11,6 @@ void BankTransfer::execute() {
 
 std::string BankTransfer::serialize() const {
     std::ostringstream t;
-    t << "T" << sender.getId() << "-" << receiver.getId() << "Q" << amount << "@" << data;
+    t << "T" << id << "A" << sender.getId() << "-" << receiver.getId() << "Q" << amount << "@" << data;
     return t.str();
 }

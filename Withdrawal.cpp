@@ -10,7 +10,7 @@ void Withdrawal::execute() {
 
 std::string Withdrawal::serialize() const {
     std::ostringstream t;
-    t << "W" << account.getId() << "Q" << amount << "@" << data;
+    t << "W" << id << "A" << account.getId() << "Q" << amount << "@" << data;
     return t.str();
 }
 

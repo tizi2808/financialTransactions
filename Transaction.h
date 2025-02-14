@@ -23,6 +23,11 @@ public:
         this->amount = amount;
         data = time(nullptr);
     };
+    explicit Transaction(const std::string& id, const double amount, const time_t timestamp) {
+        this->id = id;
+        this->amount = amount;
+        this->data = timestamp;
+    }
     virtual ~Transaction() = default;
 
     const std::string &getId() const { return id; }

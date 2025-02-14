@@ -11,9 +11,7 @@ void Deposit::execute() {
 
 std::string Deposit::serialize() const {
     std::ostringstream t;
-    t << "D" << account.getId() << "Q" << amount << "@" << data;
+    t << "D" << id << "A" << account.getId() << "Q" << amount << "@" << data;
     return t.str();
 }
-
-
 

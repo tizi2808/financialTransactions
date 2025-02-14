@@ -12,6 +12,7 @@ class BankTransfer : public Transaction {
     BankAccount& receiver;
     public:
     BankTransfer(BankAccount& sender, BankAccount& receiver, const double amount): Transaction(amount), sender(sender), receiver(receiver) {}
+    BankTransfer(BankAccount& sender, BankAccount& receiver, const std::string& id, const double amount, const time_t timestamp): Transaction(id, amount, timestamp), sender(sender), receiver(receiver) {}
 
     BankAccount& getSender(){ return sender;};
     BankAccount& getReceiver(){ return receiver;};
