@@ -11,4 +11,5 @@ add_executable(banking_transfers main.cpp
         Deposit.cpp
         Withdrawal.cpp
         BankTransfer.h
-        BankTransfer.cpp)
+        BankTransfer.cpp
+        TransactionFactory.h)
